@@ -17,7 +17,6 @@ First thing anyone sees when the log into the site.
 """
 def indexView(request):
     if request.user.is_authenticated():
-
         services = Node.objects.filter().order_by(F('votes_down')-F('votes_up'))
         return render(request, 'index.html', {'services':services})
     else:
