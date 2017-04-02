@@ -73,8 +73,9 @@ def nodeSubmitView(request):
         if request.method == "POST":
             node = Node()
             node.user = request.user
-            node.name = "test"
-            node.category = "Hotspot"
+            node.name = request.POST['name']
+            node.description = request.POST['description']
+            node.category = Category.objects.filter(name="Hotspot")[0]
             node.longitude = request.POST['lng']
             node.latitude = request.POST['lat']
             node.save()
