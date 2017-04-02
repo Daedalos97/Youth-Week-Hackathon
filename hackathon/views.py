@@ -50,9 +50,15 @@ def createHotSpotView(request):
         return render(request, '', {'hotspot_form':NodeForm})
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 @login_required
 def nodeQueryView(request):
     #if request.is_ajax():
+=======
+@login_required
+def nodeQueryView(request):
+    if request.is_ajax():
+>>>>>>> Added endpoint for quering nodes
         return HttpResponse(
             json.dumps([{
                 "id" : n.id,
@@ -62,11 +68,16 @@ def nodeQueryView(request):
             } for n in Node.objects.all()], cls=DjangoJSONEncoder),
             content_type = "application/json"
         )
+<<<<<<< HEAD
     #else:
     #    return HttpResponseForbidden()
 =======
 
 >>>>>>> Updates to views
+=======
+    else:
+        return HttpResponseForbidden()
+>>>>>>> Added endpoint for quering nodes
 
 """
 Handles the submission of a new node that was created
@@ -87,8 +98,12 @@ def nodeSubmitView(request):
 
 =======
             node.save()
+<<<<<<< HEAD
             
 >>>>>>> Updates to views
+=======
+
+>>>>>>> Added endpoint for quering nodes
             return redirect('hackathon:index')
         else:
             return HttpResponseForbidden()
