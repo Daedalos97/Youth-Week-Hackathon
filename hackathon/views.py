@@ -2,10 +2,12 @@
 from django.shortcuts import render, redirect,get_object_or_404
 from django.contrib.auth import authenticate, login, logout, update_session_auth_hash
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseNotFound, HttpResponseForbidden, HttpResponse
+from django.http import HttpResponseNotFound, HttpResponseForbidden, HttpResponse, JsonResponse
 from django.utils.crypto import get_random_string
 from django.urls import reverse
+from django.core.serializers.json import DjangoJSONEncoder
 import hashlib
+import json
 from django.db.models import F, Max
 
 from .forms import *
@@ -46,6 +48,21 @@ def createHotSpotView(request):
     else:
         NodeForm = AddMarkerForm()
         return render(request, '', {'hotspot_form':NodeForm})
+
+@login_required
+def nodeQueryView(request):
+    #if request.is_ajax():
+        return HttpResponse(
+            json.dumps([{
+                "id" : n.id,
+                "name" : n.name,
+                "lat" : n.latitude,
+                "lng" : n.longitude
+            } for n in Node.objects.all()], cls=DjangoJSONEncoder),
+            content_type = "application/json"
+        )
+    #else:
+    #    return HttpResponseForbidden()
 
 """
 Handles the submission of a new node that was created
