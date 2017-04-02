@@ -49,6 +49,7 @@ def createHotSpotView(request):
         NodeForm = AddMarkerForm()
         return render(request, '', {'hotspot_form':NodeForm})
 
+<<<<<<< HEAD
 @login_required
 def nodeQueryView(request):
     #if request.is_ajax():
@@ -63,6 +64,9 @@ def nodeQueryView(request):
         )
     #else:
     #    return HttpResponseForbidden()
+=======
+
+>>>>>>> Updates to views
 
 """
 Handles the submission of a new node that was created
@@ -71,14 +75,20 @@ Handles the submission of a new node that was created
 def nodeSubmitView(request):
     if request.is_ajax():
         if request.method == "POST":
-            """node = Node()
+            node = Node()
             node.user = request.user
-            node.name = "test"
-            #node.category = "Hotspot"
+            node.name = request.POST['name']
+            node.description = request.POST['description']
+            node.category = Category.objects.filter(name="Hotspot")[0]
             node.longitude = request.POST['lng']
             node.latitude = request.POST['lat']
+<<<<<<< HEAD
             node.save()"""
 
+=======
+            node.save()
+            
+>>>>>>> Updates to views
             return redirect('hackathon:index')
         else:
             return HttpResponseForbidden()
